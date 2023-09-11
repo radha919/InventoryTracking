@@ -52,10 +52,17 @@ namespace entity
     {
         [Key]
         public int SalesOrderId { get; set; }
+=======
+    public class Order
+    {
+        [Key]
+        public int OrderId { get; set; }
+ 
 
         [Required]
         public DateTime OrderDate { get; set; }
 
+ 
         // Other sales order properties
 
         public virtual ICollection<SalesOrderLineItem> SalesOrderLineItems { get; set; }
@@ -69,6 +76,17 @@ namespace entity
     {
         [Key]
         public int SalesOrderLineItemId { get; set; }
+=======
+        // Other order properties
+
+        public virtual ICollection<OrderLineItem> OrderLineItems { get; set; }
+    }
+
+    public class OrderLineItem
+    {
+        [Key]
+        public int OrderLineItemId { get; set; }
+ 
 
         [Required]
         public int Quantity { get; set; }
@@ -81,11 +99,19 @@ namespace entity
         [ForeignKey("SalesOrder")]
         public int SalesOrderId { get; set; }
         public virtual SalesOrder SalesOrder { get; set; }
+=======
+        // Other order line item properties
+
+        [ForeignKey("Order")]
+        public int OrderId { get; set; }
+        public virtual Order Order { get; set; }
+
 
         [ForeignKey("Product")]
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
     }
+ 
 }
 
 
