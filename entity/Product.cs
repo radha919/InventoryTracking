@@ -35,8 +35,58 @@ namespace entity
         public virtual ICollection<Purchase> Purchases { get; set; }
     }
 
-     
+    public class Customer
+    {
+        [Key]
+        public int CustomerId { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        // Other customer properties
+
+        public virtual ICollection<SalesOrder> SalesOrders { get; set; }
+    }
+
+    public class SalesOrder
+    {
+        [Key]
+        public int SalesOrderId { get; set; }
+
+        [Required]
+        public DateTime OrderDate { get; set; }
+
+        // Other sales order properties
+
+        public virtual ICollection<SalesOrderLineItem> SalesOrderLineItems { get; set; }
+
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
+    }
+
+    public class SalesOrderLineItem
+    {
+        [Key]
+        public int SalesOrderLineItemId { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
+
+        [Required]
+        public decimal UnitPrice { get; set; }
+
+        // Other sales order line item properties
+
+        [ForeignKey("SalesOrder")]
+        public int SalesOrderId { get; set; }
+        public virtual SalesOrder SalesOrder { get; set; }
+
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
+    }
 }
 
- 
+
 
