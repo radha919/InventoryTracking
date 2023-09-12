@@ -114,5 +114,45 @@ namespace entity
  
 }
 
+public class Purchase
+{
+    [Key]
+    public int PurchaseId { get; set; }
+
+    [Required]
+    public DateTime PurchaseDate { get; set; }
+
+    // Other purchase properties
+
+    public virtual ICollection<PurchaseLineItem> PurchaseLineItems { get; set; }
+
+    [ForeignKey("Supplier")]
+    public int SupplierId { get; set; }
+    public virtual Supplier Supplier { get; set; }
+}
+
+public class PurchaseLineItem
+{
+    [Key]
+    public int PurchaseLineItemId { get; set; }
+
+    [Required]
+    public int Quantity { get; set; }
+
+    [Required]
+    public decimal UnitPrice { get; set; }
+
+    // Other purchase line item properties
+
+    [ForeignKey("Purchase")]
+    public int PurchaseId { get; set; }
+    public virtual Purchase Purchase { get; set; }
+
+    [ForeignKey("Product")]
+    public int ProductId { get; set; }
+    public virtual Product Product { get; set; }
+}
+
+
 
 
